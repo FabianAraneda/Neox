@@ -14,14 +14,23 @@ const getUsuarios = ( req = request, res = response ) => {
     })
 };
 
-const putUsuarios = ( req = request, res = response ) => {
+const putUsuarios = async ( req = request, res = response ) => {
 
     const id = req.params.id;
+    const { password, google, correo,  ...resto } = req.body;
+
+    if ( password ) {
+        // Escriptar password
+        const salt = bcryptjs.genSaltSync(10);
+        resto.password = bcryptjs.hashSync( password, salt );
+    }
+
+    const usuario = await Usuario.findByIdAndUpdate( id, resto );
 
     res.json({
         code: 200,
         message: 'Put method',
-        id
+        usuario
     })
 };
 
