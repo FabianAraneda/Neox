@@ -20,7 +20,7 @@ const existeUsuario = async ( id ) => {
   // Verificar usuario existe
   const usuarioExiste = await Usuario.findById(id);
   if ( !usuarioExiste ) { 
-    throw new Error(`El correo ${ correo } ya se encuentra registrado en la BD`);
+    throw new Error(`El usuario ${ id } no existe`);
   }
 }
  

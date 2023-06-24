@@ -3,21 +3,31 @@ const bcryptjs = require('bcryptjs');
 
 const Usuario = require('../models/usuario');
 
-const getUsuarios = ( req = request, res = response ) => {
+const getUsuarios = async ( req = request, res = response ) => {
 
-    const params = req.query;
+    // const params = req.query;
+    const { limit = 5, from = 0 } = req.query;
+    const activo = { activo: true };
+
+    // Ejecuta un arreglo de promesas de manera simultanea; si una da error, todas producen error
+    const [ total, usuarios ] = await Promise.all([
+        Usuario.countDocuments( activo ),
+        Usuario.find( activo )
+                .skip(Number(from))
+                .limit(Number(limit))
+    ]);
 
     res.json({
         code: 200,
-        message: 'Get method desde controlador',
-        params
+        total,
+        usuarios
     })
 };
 
 const putUsuarios = async ( req = request, res = response ) => {
 
     const id = req.params.id;
-    const { password, google, correo,  ...resto } = req.body;
+    const { _id, password, google, correo,  ...resto } = req.body;
 
     if ( password ) {
         // Escriptar password
@@ -29,7 +39,6 @@ const putUsuarios = async ( req = request, res = response ) => {
 
     res.json({
         code: 200,
-        message: 'Put method',
         usuario
     })
 };
@@ -49,15 +58,22 @@ const postUsuarios = async ( req = request, res = response ) => {
     // Enviar respuesta
     res.json({
         code: 200,
-        message: 'Post method',
         usuario
     })
 };
 
-const deleteUsuarios = ( req = request, res = response ) => {
+const deleteUsuarios = async ( req = request, res = response ) => {
+
+    const { id } = req.params;
+
+    // Borrar registro de la BBDD
+    // const usuario = await Usuario.findByIdAndDelete(id);
+
+    const usuario = await Usuario.findByIdAndUpdate( id, { activo: false } );
+
     res.json({
         code: 200,
-        message: 'Delete method'
+        usuario
     })
 };
 
