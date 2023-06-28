@@ -36,7 +36,8 @@ const usuarioSchema = Schema({
 // Sobreescribir metodo toJSON del schema (debe declararse como funcion normal y no como funcion flecha por el uso del this)
 usuarioSchema.methods.toJSON = function() {
     // Los '...nombreVariable' hace referencia al resto de los parametros
-    const { __v, password, ...usuario } = this.toObject();
+    const { __v, password, _id, ...usuario } = this.toObject();
+    usuario.uid = _id;
     return usuario;
 }
 
