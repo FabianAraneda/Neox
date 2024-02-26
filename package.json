@@ -1,5 +1,5 @@
 {
-  "name": "6-restserver-node.express",
+  "name": "Neox test",
   "version": "1.0.0",
   "description": "",
   "main": "dist/app.js",
@@ -9,15 +9,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/FabianAraneda/restserver-node.express.git"
+    "url": "git+https://github.com/FabianAraneda/Neox.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/FabianAraneda/restserver-node.express/issues"
-  },
-  "homepage": "https://github.com/FabianAraneda/restserver-node.express#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
