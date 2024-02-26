@@ -6,11 +6,11 @@ const dbSetting = {
         encrypt: true,
         trustServerCertificate: true
     },
-    server: 'localhost',
-    port: 1434,
-    database: 'Neox',
-    user: 'test',
-    password: 'test',
+    server: process.env.SERVER,
+    port: Number.parseInt(process.env.DBPORT),
+    database: process.env.DATABASE,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
 };
 
 const dbConnection = async () => {
